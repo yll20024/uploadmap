@@ -1,0 +1,88 @@
+﻿HTTP/1.1 200 OK
+Date: Sun, 31 Jan 2021 15:06:10 GMT
+Server: Apache/2.4.10 (Debian)
+Vary: Accept-Encoding
+Content-Length: 3569
+Content-Type: text/html;charset=utf-8
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<link rel="icon" type="image/x-icon" href="/img/favicon.png" />  
+	<title>upload-labs</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/css/index.css">
+<link rel="stylesheet" type="text/css" href="/css/prism.css">
+<body>
+	<div id="head">
+		<a href="/"><img src="/img/logo.png"/></a>
+		<div id="head_menu">
+			<a id="handle_code" href="javascript:show_code()">显示源码</a>
+			<a href="javascript:get_prompt()">查看提示</a>
+			<a href="javascript:clean_upload_file()">清空上传文件</a>
+		</div>
+	</div>
+	<div id="main"><div id="menu">     
+	<ul id="menulist">         
+		<li><a id="Pass-01" href="/Pass-01/index.php">Pass-01</a></li> 
+		<li><a id="Pass-02" href="/Pass-02/index.php">Pass-02</a></li> 
+		<li><a id="Pass-03" href="/Pass-03/index.php">Pass-03</a></li> 
+		<li><a id="Pass-04" href="/Pass-04/index.php">Pass-04</a></li> 
+		<li><a id="Pass-05" href="/Pass-05/index.php">Pass-05</a></li> 
+		<li><a id="Pass-06" href="/Pass-06/index.php">Pass-06</a></li> 
+		<li><a id="Pass-07" href="/Pass-07/index.php">Pass-07</a></li> 
+		<li><a id="Pass-08" href="/Pass-08/index.php">Pass-08</a></li> 
+		<li><a id="Pass-09" href="/Pass-09/index.php">Pass-09</a></li> 
+		<li><a id="Pass-10" href="/Pass-10/index.php">Pass-10</a></li> 
+		<li><a id="Pass-11" href="/Pass-11/index.php">Pass-11</a></li> 
+		<li><a id="Pass-12" href="/Pass-12/index.php">Pass-12</a></li> 
+		<li><a id="Pass-13" href="/Pass-13/index.php">Pass-13</a></li> 
+		<li><a id="Pass-14" href="/Pass-14/index.php">Pass-14</a></li> 
+		<li><a id="Pass-15" href="/Pass-15/index.php">Pass-15</a></li> 
+		<li><a id="Pass-16" href="/Pass-16/index.php">Pass-16</a></li> 
+		<li><a id="Pass-17" href="/Pass-17/index.php">Pass-17</a></li> 
+		<li><a id="Pass-18" href="/Pass-18/index.php">Pass-18</a></li> 
+		<li><a id="Pass-19" href="/Pass-19/index.php">Pass-19</a></li>
+		<li><a id="Pass-20" href="/Pass-20/index.php">Pass-20</a></li> 
+	</ul> 
+</div>
+
+
+<div id="upload_panel">
+    <ol>
+        <li>
+            <h3>任务</h3>
+            <p>上传一个<code>webshell</code>到服务器。</p>
+        </li>
+        <li>
+            <h3>上传区</h3>
+            <form enctype="multipart/form-data" method="post" onsubmit="return checkFile()">
+                <p>请选择要上传的图片：<p>
+                <input class="input_file" type="file" name="upload_file"/>
+                <input class="button" type="submit" name="submit" value="上传"/>
+            </form>
+            <div id="msg">
+                            </div>
+            <div id="img">
+                <img src="[[[[../upload/timg.jpg]]]]" width="250px" />            </div>
+        </li>
+            </ol>
+</div>
+
+
+</div>
+		<div id="footer">
+			<center>Copyright&nbsp;@&nbsp;<span id="copyright_time"></span>&nbsp;by&nbsp;<a href="http://gv7.me" target="_bank">c0ny1</a></center>
+		</div>
+		<div class="mask"></div>
+		<div class="dialog">
+		    <div class="dialog-title">提&nbsp;示<a href="javascript:void(0)" class="close" title="关闭">关闭</a></div>
+		    <div class="dialog-content"></div>
+		</div>		
+</body>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/prism.js"></script>
+<script type="text/javascript" src="/js/prism-line-numbers.min.js"></script>
+<script type="text/javascript" src="/js/prism-php.min.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+</html>
