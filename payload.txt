@@ -1,0 +1,768 @@
+#结构：漏洞名||||被上传文件的MIME-TYPE||||{shell路径}||||shell类型||||要上传到服务器的文件名||||是否上传附加文件(0.不上传 1.上传htaccess 2.上传.user.ini)||||{htaccess或user.ini路径}||||上传到服务器的实际扩展名,[AUTO]为不指定扩展名,使用服务器返回的扩展名(比如服务器返回【1.php::$DATA上传成功】,但保存在服务器的实际扩展名为.php而不是.php::$DATA,实际扩展名与返回扩展名不一致,此时需要指定扩展名)
+#本来想用json或xml保存payload的,但发现编辑payload时不方便,就用的分割符+换行.....
+#本文件包含常见的文件上传漏洞payload,适用于做较简单的文件上传题目,针对php类型,后续可能会增加针对asp,jsp,aspx,jspx,asa,asax等类型的上传漏洞检测
+#常用
+js检查+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(Php)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.Php||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PHp)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHp||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PHP)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHP)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php5)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php4)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php3)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php2)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php1)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp5)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp4)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp3)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp2)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp1)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP5)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP4)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP3)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP2)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP1)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHtml)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phtml)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PhT)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pht)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(HtMl)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtMl||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(html)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.html||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(HtM)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtM||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(htm)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.htm||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PhTm)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhTm||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phtm)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtm||||0||||{}||||[AUTO]
+htaccess重写+jpg+php||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||1||||{./shell/htaccess.txt}||||[AUTO]
+htaccess重写+jpg+phtml||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.jpg||||1||||{./shell/htaccess.txt}||||[AUTO]
+.user.ini重写+jpg+php||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||2||||{./shell/user.ini.txt}||||[AUTO]
+.user.ini重写+jpg+phtml||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.jpg||||2||||{./shell/user.ini.txt}||||[AUTO]
+htaccess重写+jpg+php+文件头检查||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+htaccess重写+jpg+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.jpg||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+.user.ini重写+jpg+php+文件头检查||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+.user.ini重写+jpg+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.jpg||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+htaccess重写+jpg+php||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.jpg||||1||||{./shell/htaccess.txt}||||[AUTO]
+htaccess重写+jpg+phtml||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.jpg||||1||||{./shell/htaccess.txt}||||[AUTO]
+.user.ini重写+jpg+php||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.jpg||||2||||{./shell/user.ini.txt}||||[AUTO]
+.user.ini重写+jpg+phtml||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.jpg||||2||||{./shell/user.ini.txt}||||[AUTO]
+htaccess重写+jpg+php+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.jpg||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+htaccess重写+jpg+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.jpg||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+.user.ini重写+jpg+php+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.jpg||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+.user.ini重写+jpg+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.jpg||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+htaccess重写+gif+php||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.gif||||1||||{./shell/htaccess.txt}||||[AUTO]
+htaccess重写+gif+phtml||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.gif||||1||||{./shell/htaccess.txt}||||[AUTO]
+.user.ini重写+gif+php||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.gif||||2||||{./shell/user.ini.txt}||||[AUTO]
+.user.ini重写+gif+phtml||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.gif||||2||||{./shell/user.ini.txt}||||[AUTO]
+htaccess重写+gif+php+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.gif||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+htaccess重写+gif+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.gif||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+.user.ini重写+gif+php+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.gif||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+.user.ini重写+gif+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.gif||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+htaccess重写+png+php||||image/jpeg||||{./shell/shell_php_png.txt}||||php||||1.png||||1||||{./shell/htaccess.txt}||||[AUTO]
+htaccess重写+png+phtml||||image/jpeg||||{./shell/shell_phtml_png.txt}||||phtml||||1.png||||1||||{./shell/htaccess.txt}||||[AUTO]
+.user.ini重写+png+php||||image/jpeg||||{./shell/shell_php_png.txt}||||php||||1.png||||2||||{./shell/user.ini.txt}||||[AUTO]
+.user.ini重写+png+phtml||||image/jpeg||||{./shell/shell_phtml_png.txt}||||phtml||||1.png||||2||||{./shell/user.ini.txt}||||[AUTO]
+htaccess重写+png+php+文件头检查||||image/jpeg||||{./shell/shell_php_png.txt}||||php||||1.png||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+htaccess重写+png+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_png.txt}||||phtml||||1.png||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+.user.ini重写+png+php+文件头检查||||image/jpeg||||{./shell/shell_php_png.txt}||||php||||1.png||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+.user.ini重写+png+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_png.txt}||||phtml||||1.png||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+htaccess重写+png+php||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.png||||1||||{./shell/htaccess.txt}||||[AUTO]
+htaccess重写+png+phtml||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.png||||1||||{./shell/htaccess.txt}||||[AUTO]
+.user.ini重写+png+php||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.png||||2||||{./shell/user.ini.txt}||||[AUTO]
+.user.ini重写+png+phtml||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.png||||2||||{./shell/user.ini.txt}||||[AUTO]
+htaccess重写+png+php+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.png||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+htaccess重写+png+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.png||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+.user.ini重写+png+php+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.png||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+.user.ini重写+png+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.png||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+空格绕过+文件头检查(php )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php ||||0||||{}||||.php
+空格绕过+文件头检查+扩展名黑名单(Php )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.Php ||||0||||{}||||.Php
+空格绕过+文件头检查+扩展名黑名单(PHp )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHp ||||0||||{}||||.PHp
+空格绕过+文件头检查+扩展名黑名单(PHP )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHP ||||0||||{}||||.PHP
+空格绕过+文件头检查+扩展名黑名单(pHp )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp ||||0||||{}||||.pHp
+空格绕过+文件头检查+扩展名黑名单(pHP )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHP ||||0||||{}||||.pHP
+空格绕过+文件头检查+扩展名黑名单(phP )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP ||||0||||{}||||.phP
+空格绕过+文件头检查+扩展名黑名单(php5 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php5 ||||0||||{}||||.php5
+空格绕过+文件头检查+扩展名黑名单(php4 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php4 ||||0||||{}||||.php4
+空格绕过+文件头检查+扩展名黑名单(php3 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php3 ||||0||||{}||||.php3
+空格绕过+文件头检查+扩展名黑名单(php2 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php2 ||||0||||{}||||.php2
+空格绕过+文件头检查+扩展名黑名单(php1 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php1 ||||0||||{}||||.php1
+空格绕过+文件头检查+扩展名黑名单(pHp5 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp5 ||||0||||{}||||.pHp5
+空格绕过+文件头检查+扩展名黑名单(pHp4 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp4 ||||0||||{}||||.pHp4
+空格绕过+文件头检查+扩展名黑名单(pHp3 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp3 ||||0||||{}||||.pHp3
+空格绕过+文件头检查+扩展名黑名单(pHp2 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp2 ||||0||||{}||||.pHp2
+空格绕过+文件头检查+扩展名黑名单(pHp1 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp1 ||||0||||{}||||.pHp1
+空格绕过+文件头检查+扩展名黑名单(phP5 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP5 ||||0||||{}||||.phP5
+空格绕过+文件头检查+扩展名黑名单(phP4 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP4 ||||0||||{}||||.phP4
+空格绕过+文件头检查+扩展名黑名单(phP3 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP3 ||||0||||{}||||.phP3
+空格绕过+文件头检查+扩展名黑名单(phP2 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP2 ||||0||||{}||||.phP2
+空格绕过+文件头检查+扩展名黑名单(phP1 )||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP1 ||||0||||{}||||.phP1
+空格绕过+文件头检查+扩展名黑名单(pHtml )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml ||||0||||{}||||.pHtml
+空格绕过+文件头检查+扩展名黑名单(phtml )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml ||||0||||{}||||.phtml
+空格绕过+文件头检查+扩展名黑名单(PhT )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT ||||0||||{}||||.PhT
+空格绕过+文件头检查+扩展名黑名单(pht )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht ||||0||||{}||||.pht
+空格绕过+文件头检查+扩展名黑名单(PhTm )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhTm ||||0||||{}||||.PhTm
+空格绕过+文件头检查+扩展名黑名单(phtm )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtm ||||0||||{}||||.phtm
+空格绕过+文件头检查+扩展名黑名单(HtMl )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtMl ||||0||||{}||||.HtMl
+空格绕过+文件头检查+扩展名黑名单(html )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.html ||||0||||{}||||.html
+空格绕过+文件头检查+扩展名黑名单(HtM )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtM ||||0||||{}||||.HtM
+空格绕过+文件头检查+扩展名黑名单(htm )||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.htm ||||0||||{}||||.htm
+点绕过+文件头检查(php.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php.||||0||||{}||||.php
+点绕过+文件头检查+扩展名黑名单(Php.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.Php.||||0||||{}||||.Php
+点绕过+文件头检查+扩展名黑名单(PHp.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHp.||||0||||{}||||.PHp
+点绕过+文件头检查+扩展名黑名单(PHP.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHP.||||0||||{}||||.PHP
+点绕过+文件头检查+扩展名黑名单(pHp.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp.||||0||||{}||||.pHp
+点绕过+文件头检查+扩展名黑名单(pHP.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHP.||||0||||{}||||.pHP
+点绕过+文件头检查+扩展名黑名单(phP.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP.||||0||||{}||||.phP
+点绕过+文件头检查+扩展名黑名单(php5.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php5.||||0||||{}||||.php5
+点绕过+文件头检查+扩展名黑名单(php4.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php4.||||0||||{}||||.php4
+点绕过+文件头检查+扩展名黑名单(php3.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php3.||||0||||{}||||.php3
+点绕过+文件头检查+扩展名黑名单(php2.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php2.||||0||||{}||||.php2
+点绕过+文件头检查+扩展名黑名单(php1.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php1.||||0||||{}||||.php1
+点绕过+文件头检查+扩展名黑名单(pHp5.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp5.||||0||||{}||||.pHp5
+点绕过+文件头检查+扩展名黑名单(pHp4.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp4.||||0||||{}||||.pHp4
+点绕过+文件头检查+扩展名黑名单(pHp3.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp3.||||0||||{}||||.pHp3
+点绕过+文件头检查+扩展名黑名单(pHp2.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp2.||||0||||{}||||.pHp2
+点绕过+文件头检查+扩展名黑名单(pHp1.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp1.||||0||||{}||||.pHp1
+点绕过+文件头检查+扩展名黑名单(phP5.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP5.||||0||||{}||||.phP5
+点绕过+文件头检查+扩展名黑名单(phP4.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP4.||||0||||{}||||.phP4
+点绕过+文件头检查+扩展名黑名单(phP3.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP3.||||0||||{}||||.phP3
+点绕过+文件头检查+扩展名黑名单(phP2.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP2.||||0||||{}||||.phP2
+点绕过+文件头检查+扩展名黑名单(phP1.)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP1.||||0||||{}||||.phP1
+点绕过+文件头检查+扩展名黑名单(pHtml.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml.||||0||||{}||||.pHtml
+点绕过+文件头检查+扩展名黑名单(phtml.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml.||||0||||{}||||.phtml
+点绕过+文件头检查+扩展名黑名单(PhT.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT.||||0||||{}||||.PhT
+点绕过+文件头检查+扩展名黑名单(pht.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht.||||0||||{}||||.pht
+点绕过+文件头检查+扩展名黑名单(PhTm.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhTm.||||0||||{}||||.PhTm
+点绕过+文件头检查+扩展名黑名单(phtm.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtm.||||0||||{}||||.phtm
+点绕过+文件头检查+扩展名黑名单(html.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.html.||||0||||{}||||.html
+点绕过+文件头检查+扩展名黑名单(HtMl.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtMl.||||0||||{}||||.HtMl
+点绕过+文件头检查+扩展名黑名单(htm.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.htm.||||0||||{}||||.htm
+点绕过+文件头检查+扩展名黑名单(HtM.)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtM.||||0||||{}||||.HtM
+冒号绕过+文件头检查(php:1.jpg)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php:1.jpg||||0||||{}||||.php
+冒号绕过+文件头检查+<?检查(phtml:1.jpg)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||php||||1.phtml:1.jpg||||0||||{}||||.phtml
+冒号绕过+文件头检查+<?检查(pht:1.jpg)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||php||||1.pht:1.jpg||||0||||{}||||.pht
+::$DATA绕过+文件头检查(php)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php::$DATA||||0||||{}||||.php
+::$DATA绕过+文件头检查+扩展名黑名单(Php::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.Php::$DATA||||0||||{}||||.Php
+::$DATA绕过+文件头检查+扩展名黑名单(PHp::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHp::$DATA||||0||||{}||||.PHp
+::$DATA绕过+文件头检查+扩展名黑名单(PHP::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHP::$DATA||||0||||{}||||.PHP
+::$DATA绕过+文件头检查+扩展名黑名单(pHp::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp::$DATA||||0||||{}||||.pHp
+::$DATA绕过+文件头检查+扩展名黑名单(pHP::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHP::$DATA||||0||||{}||||.pHP
+::$DATA绕过+文件头检查+扩展名黑名单(phP::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP::$DATA||||0||||{}||||.phP
+::$DATA绕过+文件头检查+扩展名黑名单(php5::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php5::$DATA||||0||||{}||||.php5
+::$DATA绕过+文件头检查+扩展名黑名单(php4::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php4::$DATA||||0||||{}||||.php4
+::$DATA绕过+文件头检查+扩展名黑名单(php3::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php3::$DATA||||0||||{}||||.php3
+::$DATA绕过+文件头检查+扩展名黑名单(php2::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php2::$DATA||||0||||{}||||.php2
+::$DATA绕过+文件头检查+扩展名黑名单(php1::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php1::$DATA||||0||||{}||||.php1
+::$DATA绕过+文件头检查+扩展名黑名单(pHp5::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp5::$DATA||||0||||{}||||.pHp5
+::$DATA绕过+文件头检查+扩展名黑名单(pHp4::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp4::$DATA||||0||||{}||||.pHp4
+::$DATA绕过+文件头检查+扩展名黑名单(pHp3::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp3::$DATA||||0||||{}||||.pHp3
+::$DATA绕过+文件头检查+扩展名黑名单(pHp2::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp2::$DATA||||0||||{}||||.pHp2
+::$DATA绕过+文件头检查+扩展名黑名单(pHp1::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp1::$DATA||||0||||{}||||.pHp1
+::$DATA绕过+文件头检查+扩展名黑名单(phP5::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP5::$DATA||||0||||{}||||.phP5
+::$DATA绕过+文件头检查+扩展名黑名单(phP4::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP4::$DATA||||0||||{}||||.phP4
+::$DATA绕过+文件头检查+扩展名黑名单(phP3::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP3::$DATA||||0||||{}||||.phP3
+::$DATA绕过+文件头检查+扩展名黑名单(phP2::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP2::$DATA||||0||||{}||||.phP2
+::$DATA绕过+文件头检查+扩展名黑名单(phP1::$DATA)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP1::$DATA||||0||||{}||||.phP1
+::$DATA绕过+文件头检查+扩展名黑名单(pHtml::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml::$DATA||||0||||{}||||.pHtml
+::$DATA绕过+文件头检查+扩展名黑名单(phtml::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml::$DATA||||0||||{}||||.phtml
+::$DATA绕过+文件头检查+扩展名黑名单(PhT::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT::$DATA||||0||||{}||||.PhT
+::$DATA绕过+文件头检查+扩展名黑名单(pht::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht::$DATA||||0||||{}||||.pht
+::$DATA绕过+文件头检查+扩展名黑名单(html::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.html::$DATA||||0||||{}||||.html
+::$DATA绕过+文件头检查+扩展名黑名单(HtMl::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtMl::$DATA||||0||||{}||||.HtMl
+::$DATA绕过+文件头检查+扩展名黑名单(HtM::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtM::$DATA||||0||||{}||||.HtM
+::$DATA绕过+文件头检查+扩展名黑名单(htm::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.htm::$DATA||||0||||{}||||.htm
+::$DATA绕过+文件头检查+扩展名黑名单(PhTm::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhTm::$DATA||||0||||{}||||.PhTm
+::$DATA绕过+文件头检查+扩展名黑名单(phtm::$DATA)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtm::$DATA||||0||||{}||||.phtm
+点空格点绕过+文件头检查(php. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php. .||||0||||{}||||.php
+点空格点绕过+文件头检查+扩展名黑名单(Php. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.Php. .||||0||||{}||||.Php
+点空格点绕过+文件头检查+扩展名黑名单(PHp. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHp. .||||0||||{}||||.PHp
+点空格点绕过+文件头检查+扩展名黑名单(PHP. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PHP. .||||0||||{}||||.PHP
+点空格点绕过+文件头检查+扩展名黑名单(pHp. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp. .||||0||||{}||||.pHp
+点空格点绕过+文件头检查+扩展名黑名单(pHP. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHP. .||||0||||{}||||.pHP
+点空格点绕过+文件头检查+扩展名黑名单(phP. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP. .||||0||||{}||||.phP
+点空格点绕过+文件头检查+扩展名黑名单(php5. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php5. .||||0||||{}||||.php5
+点空格点绕过+文件头检查+扩展名黑名单(php4. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php4. .||||0||||{}||||.php4
+点空格点绕过+文件头检查+扩展名黑名单(php3. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php3. .||||0||||{}||||.php3
+点空格点绕过+文件头检查+扩展名黑名单(php2. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php2. .||||0||||{}||||.php2
+点空格点绕过+文件头检查+扩展名黑名单(php1. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php1. .||||0||||{}||||.php1
+点空格点绕过+文件头检查+扩展名黑名单(pHp5. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp5. .||||0||||{}||||.pHp5
+点空格点绕过+文件头检查+扩展名黑名单(pHp4. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp4. .||||0||||{}||||.pHp4
+点空格点绕过+文件头检查+扩展名黑名单(pHp3. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp3. .||||0||||{}||||.pHp3
+点空格点绕过+文件头检查+扩展名黑名单(pHp2. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp2. .||||0||||{}||||.pHp2
+点空格点绕过+文件头检查+扩展名黑名单(pHp1. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pHp1. .||||0||||{}||||.pHp1
+点空格点绕过+文件头检查+扩展名黑名单(phP5. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP5. .||||0||||{}||||.phP5
+点空格点绕过+文件头检查+扩展名黑名单(phP4. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP4. .||||0||||{}||||.phP4
+点空格点绕过+文件头检查+扩展名黑名单(phP3. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP3. .||||0||||{}||||.phP3
+点空格点绕过+文件头检查+扩展名黑名单(phP2. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP2. .||||0||||{}||||.phP2
+点空格点绕过+文件头检查+扩展名黑名单(phP1. .)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.phP1. .||||0||||{}||||.phP1
+点空格点绕过+文件头检查+扩展名黑名单(pHtml. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml. .||||0||||{}||||.pHtml
+点空格点绕过+文件头检查+扩展名黑名单(phtml. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml. .||||0||||{}||||.phtml
+点空格点绕过+文件头检查+扩展名黑名单(PhT. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT. .||||0||||{}||||.PhT
+点空格点绕过+文件头检查+扩展名黑名单(pht. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht. .||||0||||{}||||.pht
+点空格点绕过+文件头检查+扩展名黑名单(html. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.html. .||||0||||{}||||.html
+点空格点绕过+文件头检查+扩展名黑名单(HtMl. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtMl. .||||0||||{}||||.HtMl
+点空格点绕过+文件头检查+扩展名黑名单(PhTm. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhTm. .||||0||||{}||||.PhTm
+点空格点绕过+文件头检查+扩展名黑名单(phtm. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtm. .||||0||||{}||||.phtm
+点空格点绕过+文件头检查+扩展名黑名单(htm. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.htm. .||||0||||{}||||.htm
+点空格点绕过+文件头检查+扩展名黑名单(HtM. .)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HtM. .||||0||||{}||||.HtM
+扩展名双写绕过+扩展名黑名单(php)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphphp||||0||||{}||||.php
+扩展名双写绕过+扩展名黑名单(Php)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PPhphp||||0||||{}||||.Php
+扩展名双写绕过+扩展名黑名单(PHp)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PPHpHp||||0||||{}||||.PHp
+扩展名双写绕过+扩展名黑名单(PHP)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.PPHPHP||||0||||{}||||.PHP
+扩展名双写绕过+扩展名黑名单(pHp)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.ppHpHp||||0||||{}||||.pHp
+扩展名双写绕过+扩展名黑名单(pHP)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.ppHPHP||||0||||{}||||.pHP
+扩展名双写绕过+扩展名黑名单(phP)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphPhP||||0||||{}||||.phP
+扩展名双写绕过+扩展名黑名单(php5)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphp5hp5||||0||||{}||||.php5
+扩展名双写绕过+扩展名黑名单(php4)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphp4hp4||||0||||{}||||.php4
+扩展名双写绕过+扩展名黑名单(php3)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphp3hp3||||0||||{}||||.php3
+扩展名双写绕过+扩展名黑名单(php2)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphp2hp2||||0||||{}||||.php2
+扩展名双写绕过+扩展名黑名单(php1)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphp1hp1||||0||||{}||||.php1
+扩展名双写绕过+扩展名黑名单(pHp5)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.ppHp5Hp5||||0||||{}||||.pHp5
+扩展名双写绕过+扩展名黑名单(pHp4)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.ppHp4Hp4||||0||||{}||||.pHp4
+扩展名双写绕过+扩展名黑名单(pHp3)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.ppHp3Hp3||||0||||{}||||.pHp3
+扩展名双写绕过+扩展名黑名单(pHp2)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.ppHp2Hp2||||0||||{}||||.pHp2
+扩展名双写绕过+扩展名黑名单(pHp1)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.ppHp1Hp1||||0||||{}||||.pHp1
+扩展名双写绕过+扩展名黑名单(phP5)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphP5hP5||||0||||{}||||.phP5
+扩展名双写绕过+扩展名黑名单(phP4)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphP4hP4||||0||||{}||||.phP4
+扩展名双写绕过+扩展名黑名单(phP3)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphP3hP3||||0||||{}||||.phP3
+扩展名双写绕过+扩展名黑名单(phP2)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphP2hP2||||0||||{}||||.phP2
+扩展名双写绕过+扩展名黑名单(phP1)||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.pphP1hP1||||0||||{}||||.phP1
+扩展名双写绕过+扩展名黑名单(pHtml)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.ppHtmlHtml||||0||||{}||||.pHtml
+扩展名双写绕过+扩展名黑名单(phtml)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pphtmlhtml||||0||||{}||||.phtml
+扩展名双写绕过+扩展名黑名单(PhT)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PPhThT||||0||||{}||||.PhT
+扩展名双写绕过+扩展名黑名单(pht)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pphtht||||0||||{}||||.pht
+扩展名双写绕过+扩展名黑名单(html)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.hhtmltml||||0||||{}||||.html
+扩展名双写绕过+扩展名黑名单(HtMl)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HHtMltMl||||0||||{}||||.HtMl
+扩展名双写绕过+扩展名黑名单(PhTm)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PPhTmhTm||||0||||{}||||.PhTm
+扩展名双写绕过+扩展名黑名单(phtm)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pphtmhtm||||0||||{}||||.phtm
+扩展名双写绕过+扩展名黑名单(HtM)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HHtMtM||||0||||{}||||.HtM
+扩展名双写绕过+扩展名黑名单(htm)||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||phtml||||1.HHtMtM||||0||||{}||||.htm
+apache解析漏洞(.php.qwe.asd)+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.php.qwe.asd||||0||||{}||||[AUTO]
+apache解析漏洞(.phtml.qwe.asd)+文件头检查+<?检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||php||||1.phtml.qwe.asd||||0||||{}||||[AUTO]
+nginx解析漏洞(.jpg/3.php)+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.jpg||||0||||{}||||.jpg/3.php
+nginx解析漏洞(.jpg%00.php)+文件头检查||||image/jpeg||||{./shell/shell_php_gif.txt}||||php||||1.jpg||||0||||{}||||.jpg%00.php
+nginx解析漏洞(.jpg/3.phtml)+文件头检查+<?检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||php||||1.jpg||||0||||{}||||.jpg/3.phtml
+nginx解析漏洞(.jpg%00.phtml)+文件头检查+<?检查||||image/jpeg||||{./shell/shell_phtml_gif.txt}||||php||||1.jpg||||0||||{}||||.jpg%00.phtml
+#jpg
+js检查+文件头检查||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(Php)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.Php||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PHp)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHp||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PHP)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHP)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php5)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php4)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php3)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php2)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php1)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp5)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp4)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp3)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp2)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp1)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP5)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP4)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP3)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP2)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP1)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHtml)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pHtml||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phtml)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.phtml||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PhT)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.PhT||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pht)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pht||||0||||{}||||[AUTO]
+htaccess重写+jpg+php||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||1||||{./shell/htaccess.txt}||||[AUTO]
+htaccess重写+jpg+phtml||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.jpg||||1||||{./shell/htaccess.txt}||||[AUTO]
+.user.ini重写+jpg+php||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||2||||{./shell/user.ini.txt}||||[AUTO]
+.user.ini重写+jpg+phtml||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.jpg||||2||||{./shell/user.ini.txt}||||[AUTO]
+htaccess重写+jpg+php+文件头检查||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+htaccess重写+jpg+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.jpg||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+.user.ini重写+jpg+php+文件头检查||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+.user.ini重写+jpg+phtml+文件头检查||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.jpg||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+空格绕过+文件头检查(php )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php ||||0||||{}||||.php
+空格绕过+文件头检查+扩展名黑名单(Php )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.Php ||||0||||{}||||.Php
+空格绕过+文件头检查+扩展名黑名单(PHp )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHp ||||0||||{}||||.PHp
+空格绕过+文件头检查+扩展名黑名单(PHP )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHP ||||0||||{}||||.PHP
+空格绕过+文件头检查+扩展名黑名单(pHp )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp ||||0||||{}||||.pHp
+空格绕过+文件头检查+扩展名黑名单(pHP )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHP ||||0||||{}||||.pHP
+空格绕过+文件头检查+扩展名黑名单(phP )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP ||||0||||{}||||.phP
+空格绕过+文件头检查+扩展名黑名单(php5 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php5 ||||0||||{}||||.php5
+空格绕过+文件头检查+扩展名黑名单(php4 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php4 ||||0||||{}||||.php4
+空格绕过+文件头检查+扩展名黑名单(php3 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php3 ||||0||||{}||||.php3
+空格绕过+文件头检查+扩展名黑名单(php2 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php2 ||||0||||{}||||.php2
+空格绕过+文件头检查+扩展名黑名单(php1 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php1 ||||0||||{}||||.php1
+空格绕过+文件头检查+扩展名黑名单(pHp5 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp5 ||||0||||{}||||.pHp5
+空格绕过+文件头检查+扩展名黑名单(pHp4 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp4 ||||0||||{}||||.pHp4
+空格绕过+文件头检查+扩展名黑名单(pHp3 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp3 ||||0||||{}||||.pHp3
+空格绕过+文件头检查+扩展名黑名单(pHp2 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp2 ||||0||||{}||||.pHp2
+空格绕过+文件头检查+扩展名黑名单(pHp1 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp1 ||||0||||{}||||.pHp1
+空格绕过+文件头检查+扩展名黑名单(phP5 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP5 ||||0||||{}||||.phP5
+空格绕过+文件头检查+扩展名黑名单(phP4 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP4 ||||0||||{}||||.phP4
+空格绕过+文件头检查+扩展名黑名单(phP3 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP3 ||||0||||{}||||.phP3
+空格绕过+文件头检查+扩展名黑名单(phP2 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP2 ||||0||||{}||||.phP2
+空格绕过+文件头检查+扩展名黑名单(phP1 )||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP1 ||||0||||{}||||.phP1
+空格绕过+文件头检查+扩展名黑名单(pHtml )||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pHtml ||||0||||{}||||.pHtml
+空格绕过+文件头检查+扩展名黑名单(phtml )||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.phtml ||||0||||{}||||.phtml
+空格绕过+文件头检查+扩展名黑名单(PhT )||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.PhT ||||0||||{}||||.PhT
+空格绕过+文件头检查+扩展名黑名单(pht )||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pht ||||0||||{}||||.pht
+点绕过+文件头检查(php.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php.||||0||||{}||||.php
+点绕过+文件头检查+扩展名黑名单(Php.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.Php.||||0||||{}||||.Php
+点绕过+文件头检查+扩展名黑名单(PHp.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHp.||||0||||{}||||.PHp
+点绕过+文件头检查+扩展名黑名单(PHP.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHP.||||0||||{}||||.PHP
+点绕过+文件头检查+扩展名黑名单(pHp.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp.||||0||||{}||||.pHp
+点绕过+文件头检查+扩展名黑名单(pHP.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHP.||||0||||{}||||.pHP
+点绕过+文件头检查+扩展名黑名单(phP.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP.||||0||||{}||||.phP
+点绕过+文件头检查+扩展名黑名单(php5.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php5.||||0||||{}||||.php5
+点绕过+文件头检查+扩展名黑名单(php4.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php4.||||0||||{}||||.php4
+点绕过+文件头检查+扩展名黑名单(php3.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php3.||||0||||{}||||.php3
+点绕过+文件头检查+扩展名黑名单(php2.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php2.||||0||||{}||||.php2
+点绕过+文件头检查+扩展名黑名单(php1.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php1.||||0||||{}||||.php1
+点绕过+文件头检查+扩展名黑名单(pHp5.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp5.||||0||||{}||||.pHp5
+点绕过+文件头检查+扩展名黑名单(pHp4.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp4.||||0||||{}||||.pHp4
+点绕过+文件头检查+扩展名黑名单(pHp3.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp3.||||0||||{}||||.pHp3
+点绕过+文件头检查+扩展名黑名单(pHp2.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp2.||||0||||{}||||.pHp2
+点绕过+文件头检查+扩展名黑名单(pHp1.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp1.||||0||||{}||||.pHp1
+点绕过+文件头检查+扩展名黑名单(phP5.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP5.||||0||||{}||||.phP5
+点绕过+文件头检查+扩展名黑名单(phP4.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP4.||||0||||{}||||.phP4
+点绕过+文件头检查+扩展名黑名单(phP3.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP3.||||0||||{}||||.phP3
+点绕过+文件头检查+扩展名黑名单(phP2.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP2.||||0||||{}||||.phP2
+点绕过+文件头检查+扩展名黑名单(phP1.)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP1.||||0||||{}||||.phP1
+点绕过+文件头检查+扩展名黑名单(pHtml.)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pHtml.||||0||||{}||||.pHtml
+点绕过+文件头检查+扩展名黑名单(phtml.)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.phtml.||||0||||{}||||.phtml
+点绕过+文件头检查+扩展名黑名单(PhT.)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.PhT.||||0||||{}||||.PhT
+点绕过+文件头检查+扩展名黑名单(pht.)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pht.||||0||||{}||||.pht
+冒号绕过+文件头检查(php:1.jpg)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php:1.jpg||||0||||{}||||.php
+冒号绕过+文件头检查+<?检查(phtml:1.jpg)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||php||||1.phtml:1.jpg||||0||||{}||||.phtml
+冒号绕过+文件头检查+<?检查(pht:1.jpg)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||php||||1.pht:1.jpg||||0||||{}||||.pht
+::$DATA绕过+文件头检查(php)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php::$DATA||||0||||{}||||.php
+::$DATA绕过+文件头检查+扩展名黑名单(Php::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.Php::$DATA||||0||||{}||||.Php
+::$DATA绕过+文件头检查+扩展名黑名单(PHp::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHp::$DATA||||0||||{}||||.PHp
+::$DATA绕过+文件头检查+扩展名黑名单(PHP::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHP::$DATA||||0||||{}||||.PHP
+::$DATA绕过+文件头检查+扩展名黑名单(pHp::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp::$DATA||||0||||{}||||.pHp
+::$DATA绕过+文件头检查+扩展名黑名单(pHP::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHP::$DATA||||0||||{}||||.pHP
+::$DATA绕过+文件头检查+扩展名黑名单(phP::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP::$DATA||||0||||{}||||.phP
+::$DATA绕过+文件头检查+扩展名黑名单(php5::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php5::$DATA||||0||||{}||||.php5
+::$DATA绕过+文件头检查+扩展名黑名单(php4::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php4::$DATA||||0||||{}||||.php4
+::$DATA绕过+文件头检查+扩展名黑名单(php3::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php3::$DATA||||0||||{}||||.php3
+::$DATA绕过+文件头检查+扩展名黑名单(php2::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php2::$DATA||||0||||{}||||.php2
+::$DATA绕过+文件头检查+扩展名黑名单(php1::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php1::$DATA||||0||||{}||||.php1
+::$DATA绕过+文件头检查+扩展名黑名单(pHp5::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp5::$DATA||||0||||{}||||.pHp5
+::$DATA绕过+文件头检查+扩展名黑名单(pHp4::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp4::$DATA||||0||||{}||||.pHp4
+::$DATA绕过+文件头检查+扩展名黑名单(pHp3::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp3::$DATA||||0||||{}||||.pHp3
+::$DATA绕过+文件头检查+扩展名黑名单(pHp2::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp2::$DATA||||0||||{}||||.pHp2
+::$DATA绕过+文件头检查+扩展名黑名单(pHp1::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp1::$DATA||||0||||{}||||.pHp1
+::$DATA绕过+文件头检查+扩展名黑名单(phP5::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP5::$DATA||||0||||{}||||.phP5
+::$DATA绕过+文件头检查+扩展名黑名单(phP4::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP4::$DATA||||0||||{}||||.phP4
+::$DATA绕过+文件头检查+扩展名黑名单(phP3::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP3::$DATA||||0||||{}||||.phP3
+::$DATA绕过+文件头检查+扩展名黑名单(phP2::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP2::$DATA||||0||||{}||||.phP2
+::$DATA绕过+文件头检查+扩展名黑名单(phP1::$DATA)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP1::$DATA||||0||||{}||||.phP1
+::$DATA绕过+文件头检查+扩展名黑名单(pHtml::$DATA)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pHtml::$DATA||||0||||{}||||.pHtml
+::$DATA绕过+文件头检查+扩展名黑名单(phtml::$DATA)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.phtml::$DATA||||0||||{}||||.phtml
+::$DATA绕过+文件头检查+扩展名黑名单(PhT::$DATA)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.PhT::$DATA||||0||||{}||||.PhT
+::$DATA绕过+文件头检查+扩展名黑名单(pht::$DATA)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pht::$DATA||||0||||{}||||.pht
+点空格点绕过+文件头检查(php. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php. .||||0||||{}||||.php
+点空格点绕过+文件头检查+扩展名黑名单(Php. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.Php. .||||0||||{}||||.Php
+点空格点绕过+文件头检查+扩展名黑名单(PHp. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHp. .||||0||||{}||||.PHp
+点空格点绕过+文件头检查+扩展名黑名单(PHP. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PHP. .||||0||||{}||||.PHP
+点空格点绕过+文件头检查+扩展名黑名单(pHp. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp. .||||0||||{}||||.pHp
+点空格点绕过+文件头检查+扩展名黑名单(pHP. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHP. .||||0||||{}||||.pHP
+点空格点绕过+文件头检查+扩展名黑名单(phP. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP. .||||0||||{}||||.phP
+点空格点绕过+文件头检查+扩展名黑名单(php5. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php5. .||||0||||{}||||.php5
+点空格点绕过+文件头检查+扩展名黑名单(php4. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php4. .||||0||||{}||||.php4
+点空格点绕过+文件头检查+扩展名黑名单(php3. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php3. .||||0||||{}||||.php3
+点空格点绕过+文件头检查+扩展名黑名单(php2. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php2. .||||0||||{}||||.php2
+点空格点绕过+文件头检查+扩展名黑名单(php1. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php1. .||||0||||{}||||.php1
+点空格点绕过+文件头检查+扩展名黑名单(pHp5. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp5. .||||0||||{}||||.pHp5
+点空格点绕过+文件头检查+扩展名黑名单(pHp4. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp4. .||||0||||{}||||.pHp4
+点空格点绕过+文件头检查+扩展名黑名单(pHp3. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp3. .||||0||||{}||||.pHp3
+点空格点绕过+文件头检查+扩展名黑名单(pHp2. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp2. .||||0||||{}||||.pHp2
+点空格点绕过+文件头检查+扩展名黑名单(pHp1. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pHp1. .||||0||||{}||||.pHp1
+点空格点绕过+文件头检查+扩展名黑名单(phP5. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP5. .||||0||||{}||||.phP5
+点空格点绕过+文件头检查+扩展名黑名单(phP4. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP4. .||||0||||{}||||.phP4
+点空格点绕过+文件头检查+扩展名黑名单(phP3. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP3. .||||0||||{}||||.phP3
+点空格点绕过+文件头检查+扩展名黑名单(phP2. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP2. .||||0||||{}||||.phP2
+点空格点绕过+文件头检查+扩展名黑名单(phP1. .)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.phP1. .||||0||||{}||||.phP1
+点空格点绕过+文件头检查+扩展名黑名单(pHtml. .)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pHtml. .||||0||||{}||||.pHtml
+点空格点绕过+文件头检查+扩展名黑名单(phtml. .)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.phtml. .||||0||||{}||||.phtml
+点空格点绕过+文件头检查+扩展名黑名单(PhT. .)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.PhT. .||||0||||{}||||.PhT
+点空格点绕过+文件头检查+扩展名黑名单(pht. .)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pht. .||||0||||{}||||.pht
+扩展名双写绕过+扩展名黑名单(php)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphphp||||0||||{}||||.php
+扩展名双写绕过+扩展名黑名单(Php)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PPhphp||||0||||{}||||.Php
+扩展名双写绕过+扩展名黑名单(PHp)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PPHpHp||||0||||{}||||.PHp
+扩展名双写绕过+扩展名黑名单(PHP)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.PPHPHP||||0||||{}||||.PHP
+扩展名双写绕过+扩展名黑名单(pHp)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.ppHpHp||||0||||{}||||.pHp
+扩展名双写绕过+扩展名黑名单(pHP)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.ppHPHP||||0||||{}||||.pHP
+扩展名双写绕过+扩展名黑名单(phP)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphPhP||||0||||{}||||.phP
+扩展名双写绕过+扩展名黑名单(php5)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphp5hp5||||0||||{}||||.php5
+扩展名双写绕过+扩展名黑名单(php4)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphp4hp4||||0||||{}||||.php4
+扩展名双写绕过+扩展名黑名单(php3)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphp3hp3||||0||||{}||||.php3
+扩展名双写绕过+扩展名黑名单(php2)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphp2hp2||||0||||{}||||.php2
+扩展名双写绕过+扩展名黑名单(php1)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphp1hp1||||0||||{}||||.php1
+扩展名双写绕过+扩展名黑名单(pHp5)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.ppHp5Hp5||||0||||{}||||.pHp5
+扩展名双写绕过+扩展名黑名单(pHp4)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.ppHp4Hp4||||0||||{}||||.pHp4
+扩展名双写绕过+扩展名黑名单(pHp3)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.ppHp3Hp3||||0||||{}||||.pHp3
+扩展名双写绕过+扩展名黑名单(pHp2)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.ppHp2Hp2||||0||||{}||||.pHp2
+扩展名双写绕过+扩展名黑名单(pHp1)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.ppHp1Hp1||||0||||{}||||.pHp1
+扩展名双写绕过+扩展名黑名单(phP5)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphP5hP5||||0||||{}||||.phP5
+扩展名双写绕过+扩展名黑名单(phP4)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphP4hP4||||0||||{}||||.phP4
+扩展名双写绕过+扩展名黑名单(phP3)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphP3hP3||||0||||{}||||.phP3
+扩展名双写绕过+扩展名黑名单(phP2)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphP2hP2||||0||||{}||||.phP2
+扩展名双写绕过+扩展名黑名单(phP1)||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.pphP1hP1||||0||||{}||||.phP1
+扩展名双写绕过+扩展名黑名单(pHtml)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.ppHtmlHtml||||0||||{}||||.pHtml
+扩展名双写绕过+扩展名黑名单(phtml)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pphtmlhtml||||0||||{}||||.phtml
+扩展名双写绕过+扩展名黑名单(PhT)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.PPhThT||||0||||{}||||.PhT
+扩展名双写绕过+扩展名黑名单(pht)||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||phtml||||1.pphtht||||0||||{}||||.pht
+apache解析漏洞(.php.qwe.asd)+文件头检查||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.php.qwe.asd||||0||||{}||||[AUTO]
+apache解析漏洞(.phtml.qwe.asd)+文件头检查+<?检查||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||php||||1.phtml.qwe.asd||||0||||{}||||[AUTO]
+nginx解析漏洞(.jpg/3.php)+文件头检查||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||0||||{}||||.jpg/3.php
+nginx解析漏洞(.jpg%00.php)+文件头检查||||image/jpeg||||{./shell/shell_php_jpg.txt}||||php||||1.jpg||||0||||{}||||.jpg%00.php
+nginx解析漏洞(.jpg/3.phtml)+文件头检查+<?检查||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||php||||1.jpg||||0||||{}||||.jpg/3.phtml
+nginx解析漏洞(.jpg%00.phtml)+文件头检查+<?检查||||image/jpeg||||{./shell/shell_phtml_jpg.txt}||||php||||1.jpg||||0||||{}||||.jpg%00.phtml
+#gif
+js检查+文件头检查||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(Php)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.Php||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PHp)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHp||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PHP)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHP)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php5)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php4)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php3)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php2)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php1)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp5)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp4)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp3)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp2)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp1)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP5)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP4)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP3)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP2)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP1)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHtml)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phtml)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PhT)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pht)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht||||0||||{}||||[AUTO]
+htaccess重写+gif+php||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.gif||||1||||{./shell/htaccess.txt}||||[AUTO]
+htaccess重写+gif+phtml||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.gif||||1||||{./shell/htaccess.txt}||||[AUTO]
+.user.ini重写+gif+php||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.gif||||2||||{./shell/user.ini.txt}||||[AUTO]
+.user.ini重写+gif+phtml||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.gif||||2||||{./shell/user.ini.txt}||||[AUTO]
+htaccess重写+gif+php+文件头检查||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.gif||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+htaccess重写+gif+phtml+文件头检查||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.gif||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+.user.ini重写+gif+php+文件头检查||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.gif||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+.user.ini重写+gif+phtml+文件头检查||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.gif||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+空格绕过+文件头检查(php )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php ||||0||||{}||||.php
+空格绕过+文件头检查+扩展名黑名单(Php )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.Php ||||0||||{}||||.Php
+空格绕过+文件头检查+扩展名黑名单(PHp )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHp ||||0||||{}||||.PHp
+空格绕过+文件头检查+扩展名黑名单(PHP )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHP ||||0||||{}||||.PHP
+空格绕过+文件头检查+扩展名黑名单(pHp )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp ||||0||||{}||||.pHp
+空格绕过+文件头检查+扩展名黑名单(pHP )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHP ||||0||||{}||||.pHP
+空格绕过+文件头检查+扩展名黑名单(phP )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP ||||0||||{}||||.phP
+空格绕过+文件头检查+扩展名黑名单(php5 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php5 ||||0||||{}||||.php5
+空格绕过+文件头检查+扩展名黑名单(php4 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php4 ||||0||||{}||||.php4
+空格绕过+文件头检查+扩展名黑名单(php3 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php3 ||||0||||{}||||.php3
+空格绕过+文件头检查+扩展名黑名单(php2 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php2 ||||0||||{}||||.php2
+空格绕过+文件头检查+扩展名黑名单(php1 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php1 ||||0||||{}||||.php1
+空格绕过+文件头检查+扩展名黑名单(pHp5 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp5 ||||0||||{}||||.pHp5
+空格绕过+文件头检查+扩展名黑名单(pHp4 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp4 ||||0||||{}||||.pHp4
+空格绕过+文件头检查+扩展名黑名单(pHp3 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp3 ||||0||||{}||||.pHp3
+空格绕过+文件头检查+扩展名黑名单(pHp2 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp2 ||||0||||{}||||.pHp2
+空格绕过+文件头检查+扩展名黑名单(pHp1 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp1 ||||0||||{}||||.pHp1
+空格绕过+文件头检查+扩展名黑名单(phP5 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP5 ||||0||||{}||||.phP5
+空格绕过+文件头检查+扩展名黑名单(phP4 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP4 ||||0||||{}||||.phP4
+空格绕过+文件头检查+扩展名黑名单(phP3 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP3 ||||0||||{}||||.phP3
+空格绕过+文件头检查+扩展名黑名单(phP2 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP2 ||||0||||{}||||.phP2
+空格绕过+文件头检查+扩展名黑名单(phP1 )||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP1 ||||0||||{}||||.phP1
+空格绕过+文件头检查+扩展名黑名单(pHtml )||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml ||||0||||{}||||.pHtml
+空格绕过+文件头检查+扩展名黑名单(phtml )||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml ||||0||||{}||||.phtml
+空格绕过+文件头检查+扩展名黑名单(PhT )||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT ||||0||||{}||||.PhT
+空格绕过+文件头检查+扩展名黑名单(pht )||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht ||||0||||{}||||.pht
+点绕过+文件头检查(php.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php.||||0||||{}||||.php
+点绕过+文件头检查+扩展名黑名单(Php.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.Php.||||0||||{}||||.Php
+点绕过+文件头检查+扩展名黑名单(PHp.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHp.||||0||||{}||||.PHp
+点绕过+文件头检查+扩展名黑名单(PHP.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHP.||||0||||{}||||.PHP
+点绕过+文件头检查+扩展名黑名单(pHp.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp.||||0||||{}||||.pHp
+点绕过+文件头检查+扩展名黑名单(pHP.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHP.||||0||||{}||||.pHP
+点绕过+文件头检查+扩展名黑名单(phP.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP.||||0||||{}||||.phP
+点绕过+文件头检查+扩展名黑名单(php5.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php5.||||0||||{}||||.php5
+点绕过+文件头检查+扩展名黑名单(php4.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php4.||||0||||{}||||.php4
+点绕过+文件头检查+扩展名黑名单(php3.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php3.||||0||||{}||||.php3
+点绕过+文件头检查+扩展名黑名单(php2.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php2.||||0||||{}||||.php2
+点绕过+文件头检查+扩展名黑名单(php1.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php1.||||0||||{}||||.php1
+点绕过+文件头检查+扩展名黑名单(pHp5.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp5.||||0||||{}||||.pHp5
+点绕过+文件头检查+扩展名黑名单(pHp4.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp4.||||0||||{}||||.pHp4
+点绕过+文件头检查+扩展名黑名单(pHp3.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp3.||||0||||{}||||.pHp3
+点绕过+文件头检查+扩展名黑名单(pHp2.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp2.||||0||||{}||||.pHp2
+点绕过+文件头检查+扩展名黑名单(pHp1.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp1.||||0||||{}||||.pHp1
+点绕过+文件头检查+扩展名黑名单(phP5.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP5.||||0||||{}||||.phP5
+点绕过+文件头检查+扩展名黑名单(phP4.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP4.||||0||||{}||||.phP4
+点绕过+文件头检查+扩展名黑名单(phP3.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP3.||||0||||{}||||.phP3
+点绕过+文件头检查+扩展名黑名单(phP2.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP2.||||0||||{}||||.phP2
+点绕过+文件头检查+扩展名黑名单(phP1.)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP1.||||0||||{}||||.phP1
+点绕过+文件头检查+扩展名黑名单(pHtml.)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml.||||0||||{}||||.pHtml
+点绕过+文件头检查+扩展名黑名单(phtml.)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml.||||0||||{}||||.phtml
+点绕过+文件头检查+扩展名黑名单(PhT.)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT.||||0||||{}||||.PhT
+点绕过+文件头检查+扩展名黑名单(pht.)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht.||||0||||{}||||.pht
+冒号绕过+文件头检查(php:1.gif)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php:1.gif||||0||||{}||||.php
+冒号绕过+文件头检查+<?检查(phtml:1.gif)||||image/gif||||{./shell/shell_phtml_gif.txt}||||php||||1.phtml:1.gif||||0||||{}||||.phtml
+冒号绕过+文件头检查+<?检查(pht:1.gif)||||image/gif||||{./shell/shell_phtml_gif.txt}||||php||||1.pht:1.gif||||0||||{}||||.pht
+::$DATA绕过+文件头检查(php)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php::$DATA||||0||||{}||||.php
+::$DATA绕过+文件头检查+扩展名黑名单(Php::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.Php::$DATA||||0||||{}||||.Php
+::$DATA绕过+文件头检查+扩展名黑名单(PHp::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHp::$DATA||||0||||{}||||.PHp
+::$DATA绕过+文件头检查+扩展名黑名单(PHP::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHP::$DATA||||0||||{}||||.PHP
+::$DATA绕过+文件头检查+扩展名黑名单(pHp::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp::$DATA||||0||||{}||||.pHp
+::$DATA绕过+文件头检查+扩展名黑名单(pHP::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHP::$DATA||||0||||{}||||.pHP
+::$DATA绕过+文件头检查+扩展名黑名单(phP::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP::$DATA||||0||||{}||||.phP
+::$DATA绕过+文件头检查+扩展名黑名单(php5::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php5::$DATA||||0||||{}||||.php5
+::$DATA绕过+文件头检查+扩展名黑名单(php4::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php4::$DATA||||0||||{}||||.php4
+::$DATA绕过+文件头检查+扩展名黑名单(php3::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php3::$DATA||||0||||{}||||.php3
+::$DATA绕过+文件头检查+扩展名黑名单(php2::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php2::$DATA||||0||||{}||||.php2
+::$DATA绕过+文件头检查+扩展名黑名单(php1::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php1::$DATA||||0||||{}||||.php1
+::$DATA绕过+文件头检查+扩展名黑名单(pHp5::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp5::$DATA||||0||||{}||||.pHp5
+::$DATA绕过+文件头检查+扩展名黑名单(pHp4::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp4::$DATA||||0||||{}||||.pHp4
+::$DATA绕过+文件头检查+扩展名黑名单(pHp3::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp3::$DATA||||0||||{}||||.pHp3
+::$DATA绕过+文件头检查+扩展名黑名单(pHp2::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp2::$DATA||||0||||{}||||.pHp2
+::$DATA绕过+文件头检查+扩展名黑名单(pHp1::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp1::$DATA||||0||||{}||||.pHp1
+::$DATA绕过+文件头检查+扩展名黑名单(phP5::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP5::$DATA||||0||||{}||||.phP5
+::$DATA绕过+文件头检查+扩展名黑名单(phP4::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP4::$DATA||||0||||{}||||.phP4
+::$DATA绕过+文件头检查+扩展名黑名单(phP3::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP3::$DATA||||0||||{}||||.phP3
+::$DATA绕过+文件头检查+扩展名黑名单(phP2::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP2::$DATA||||0||||{}||||.phP2
+::$DATA绕过+文件头检查+扩展名黑名单(phP1::$DATA)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP1::$DATA||||0||||{}||||.phP1
+::$DATA绕过+文件头检查+扩展名黑名单(pHtml::$DATA)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml::$DATA||||0||||{}||||.pHtml
+::$DATA绕过+文件头检查+扩展名黑名单(phtml::$DATA)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml::$DATA||||0||||{}||||.phtml
+::$DATA绕过+文件头检查+扩展名黑名单(PhT::$DATA)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT::$DATA||||0||||{}||||.PhT
+::$DATA绕过+文件头检查+扩展名黑名单(pht::$DATA)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht::$DATA||||0||||{}||||.pht
+点空格点绕过+文件头检查(php. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php. .||||0||||{}||||.php
+点空格点绕过+文件头检查+扩展名黑名单(Php. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.Php. .||||0||||{}||||.Php
+点空格点绕过+文件头检查+扩展名黑名单(PHp. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHp. .||||0||||{}||||.PHp
+点空格点绕过+文件头检查+扩展名黑名单(PHP. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PHP. .||||0||||{}||||.PHP
+点空格点绕过+文件头检查+扩展名黑名单(pHp. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp. .||||0||||{}||||.pHp
+点空格点绕过+文件头检查+扩展名黑名单(pHP. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHP. .||||0||||{}||||.pHP
+点空格点绕过+文件头检查+扩展名黑名单(phP. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP. .||||0||||{}||||.phP
+点空格点绕过+文件头检查+扩展名黑名单(php5. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php5. .||||0||||{}||||.php5
+点空格点绕过+文件头检查+扩展名黑名单(php4. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php4. .||||0||||{}||||.php4
+点空格点绕过+文件头检查+扩展名黑名单(php3. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php3. .||||0||||{}||||.php3
+点空格点绕过+文件头检查+扩展名黑名单(php2. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php2. .||||0||||{}||||.php2
+点空格点绕过+文件头检查+扩展名黑名单(php1. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php1. .||||0||||{}||||.php1
+点空格点绕过+文件头检查+扩展名黑名单(pHp5. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp5. .||||0||||{}||||.pHp5
+点空格点绕过+文件头检查+扩展名黑名单(pHp4. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp4. .||||0||||{}||||.pHp4
+点空格点绕过+文件头检查+扩展名黑名单(pHp3. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp3. .||||0||||{}||||.pHp3
+点空格点绕过+文件头检查+扩展名黑名单(pHp2. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp2. .||||0||||{}||||.pHp2
+点空格点绕过+文件头检查+扩展名黑名单(pHp1. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pHp1. .||||0||||{}||||.pHp1
+点空格点绕过+文件头检查+扩展名黑名单(phP5. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP5. .||||0||||{}||||.phP5
+点空格点绕过+文件头检查+扩展名黑名单(phP4. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP4. .||||0||||{}||||.phP4
+点空格点绕过+文件头检查+扩展名黑名单(phP3. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP3. .||||0||||{}||||.phP3
+点空格点绕过+文件头检查+扩展名黑名单(phP2. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP2. .||||0||||{}||||.phP2
+点空格点绕过+文件头检查+扩展名黑名单(phP1. .)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.phP1. .||||0||||{}||||.phP1
+点空格点绕过+文件头检查+扩展名黑名单(pHtml. .)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pHtml. .||||0||||{}||||.pHtml
+点空格点绕过+文件头检查+扩展名黑名单(phtml. .)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phtml. .||||0||||{}||||.phtml
+点空格点绕过+文件头检查+扩展名黑名单(PhT. .)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PhT. .||||0||||{}||||.PhT
+点空格点绕过+文件头检查+扩展名黑名单(pht. .)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pht. .||||0||||{}||||.pht
+扩展名双写绕过+扩展名黑名单(php)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphphp||||0||||{}||||.php
+扩展名双写绕过+扩展名黑名单(Php)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PPhphp||||0||||{}||||.Php
+扩展名双写绕过+扩展名黑名单(PHp)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PPHpHp||||0||||{}||||.PHp
+扩展名双写绕过+扩展名黑名单(PHP)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.PPHPHP||||0||||{}||||.PHP
+扩展名双写绕过+扩展名黑名单(pHp)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.ppHpHp||||0||||{}||||.pHp
+扩展名双写绕过+扩展名黑名单(pHP)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.ppHPHP||||0||||{}||||.pHP
+扩展名双写绕过+扩展名黑名单(phP)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphPhP||||0||||{}||||.phP
+扩展名双写绕过+扩展名黑名单(php5)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphp5hp5||||0||||{}||||.php5
+扩展名双写绕过+扩展名黑名单(php4)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphp4hp4||||0||||{}||||.php4
+扩展名双写绕过+扩展名黑名单(php3)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphp3hp3||||0||||{}||||.php3
+扩展名双写绕过+扩展名黑名单(php2)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphp2hp2||||0||||{}||||.php2
+扩展名双写绕过+扩展名黑名单(php1)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphp1hp1||||0||||{}||||.php1
+扩展名双写绕过+扩展名黑名单(pHp5)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.ppHp5Hp5||||0||||{}||||.pHp5
+扩展名双写绕过+扩展名黑名单(pHp4)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.ppHp4Hp4||||0||||{}||||.pHp4
+扩展名双写绕过+扩展名黑名单(pHp3)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.ppHp3Hp3||||0||||{}||||.pHp3
+扩展名双写绕过+扩展名黑名单(pHp2)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.ppHp2Hp2||||0||||{}||||.pHp2
+扩展名双写绕过+扩展名黑名单(pHp1)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.ppHp1Hp1||||0||||{}||||.pHp1
+扩展名双写绕过+扩展名黑名单(phP5)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphP5hP5||||0||||{}||||.phP5
+扩展名双写绕过+扩展名黑名单(phP4)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphP4hP4||||0||||{}||||.phP4
+扩展名双写绕过+扩展名黑名单(phP3)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphP3hP3||||0||||{}||||.phP3
+扩展名双写绕过+扩展名黑名单(phP2)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphP2hP2||||0||||{}||||.phP2
+扩展名双写绕过+扩展名黑名单(phP1)||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.pphP1hP1||||0||||{}||||.phP1
+扩展名双写绕过+扩展名黑名单(pHtml)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.ppHtmlHtml||||0||||{}||||.pHtml
+扩展名双写绕过+扩展名黑名单(phtml)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pphtmlhtml||||0||||{}||||.phtml
+扩展名双写绕过+扩展名黑名单(PhT)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.PPhThT||||0||||{}||||.PhT
+扩展名双写绕过+扩展名黑名单(pht)||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.pphtht||||0||||{}||||.pht
+apache解析漏洞(.php.qwe.asd)+文件头检查||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.php.qwe.asd||||0||||{}||||[AUTO]
+apache解析漏洞(.phtml.qwe.asd)+文件头检查+<?检查||||image/gif||||{./shell/shell_phtml_gif.txt}||||php||||1.phtml.qwe.asd||||0||||{}||||[AUTO]
+nginx解析漏洞(.gif/3.php)+文件头检查||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.gif||||0||||{}||||.gif/3.php
+nginx解析漏洞(.gif%00.php)+文件头检查||||image/gif||||{./shell/shell_php_gif.txt}||||php||||1.gif||||0||||{}||||.gif%00.php
+nginx解析漏洞(.gif/3.phtml)+文件头检查+<?检查||||image/gif||||{./shell/shell_phtml_gif.txt}||||php||||1.gif||||0||||{}||||.gif/3.phtml
+nginx解析漏洞(.gif%00.phtml)+文件头检查+<?检查||||image/gif||||{./shell/shell_phtml_gif.txt}||||php||||1.gif||||0||||{}||||.gif%00.phtml
+#png
+js检查+文件头检查||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(Php)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.Php||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PHp)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHp||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PHP)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHP)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php5)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php4)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php3)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php2)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(php1)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp5)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp4)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp3)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp2)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHp1)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP5)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP5||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP4)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP4||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP3)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP3||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP2)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP2||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phP1)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP1||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pHtml)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pHtml||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(phtml)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.phtml||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(PhT)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.PhT||||0||||{}||||[AUTO]
+文件头检查+扩展名黑名单(pht)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pht||||0||||{}||||[AUTO]
+htaccess重写+png+php||||image/png||||{./shell/shell_php_png.txt}||||php||||1.png||||1||||{./shell/htaccess.txt}||||[AUTO]
+htaccess重写+png+phtml||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.png||||1||||{./shell/htaccess.txt}||||[AUTO]
+.user.ini重写+png+php||||image/png||||{./shell/shell_php_png.txt}||||php||||1.png||||2||||{./shell/user.ini.txt}||||[AUTO]
+.user.ini重写+png+phtml||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.png||||2||||{./shell/user.ini.txt}||||[AUTO]
+htaccess重写+png+php+文件头检查||||image/png||||{./shell/shell_php_png.txt}||||php||||1.png||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+htaccess重写+png+phtml+文件头检查||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.png||||1||||{./shell/htaccess_gif.txt}||||[AUTO]
+.user.ini重写+png+php+文件头检查||||image/png||||{./shell/shell_php_png.txt}||||php||||1.png||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+.user.ini重写+png+phtml+文件头检查||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.png||||2||||{./shell/user.ini_gif.txt}||||[AUTO]
+空格绕过+文件头检查(php )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php ||||0||||{}||||.php
+空格绕过+文件头检查+扩展名黑名单(Php )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.Php ||||0||||{}||||.Php
+空格绕过+文件头检查+扩展名黑名单(PHp )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHp ||||0||||{}||||.PHp
+空格绕过+文件头检查+扩展名黑名单(PHP )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHP ||||0||||{}||||.PHP
+空格绕过+文件头检查+扩展名黑名单(pHp )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp ||||0||||{}||||.pHp
+空格绕过+文件头检查+扩展名黑名单(pHP )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHP ||||0||||{}||||.pHP
+空格绕过+文件头检查+扩展名黑名单(phP )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP ||||0||||{}||||.phP
+空格绕过+文件头检查+扩展名黑名单(php5 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php5 ||||0||||{}||||.php5
+空格绕过+文件头检查+扩展名黑名单(php4 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php4 ||||0||||{}||||.php4
+空格绕过+文件头检查+扩展名黑名单(php3 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php3 ||||0||||{}||||.php3
+空格绕过+文件头检查+扩展名黑名单(php2 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php2 ||||0||||{}||||.php2
+空格绕过+文件头检查+扩展名黑名单(php1 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php1 ||||0||||{}||||.php1
+空格绕过+文件头检查+扩展名黑名单(pHp5 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp5 ||||0||||{}||||.pHp5
+空格绕过+文件头检查+扩展名黑名单(pHp4 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp4 ||||0||||{}||||.pHp4
+空格绕过+文件头检查+扩展名黑名单(pHp3 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp3 ||||0||||{}||||.pHp3
+空格绕过+文件头检查+扩展名黑名单(pHp2 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp2 ||||0||||{}||||.pHp2
+空格绕过+文件头检查+扩展名黑名单(pHp1 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp1 ||||0||||{}||||.pHp1
+空格绕过+文件头检查+扩展名黑名单(phP5 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP5 ||||0||||{}||||.phP5
+空格绕过+文件头检查+扩展名黑名单(phP4 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP4 ||||0||||{}||||.phP4
+空格绕过+文件头检查+扩展名黑名单(phP3 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP3 ||||0||||{}||||.phP3
+空格绕过+文件头检查+扩展名黑名单(phP2 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP2 ||||0||||{}||||.phP2
+空格绕过+文件头检查+扩展名黑名单(phP1 )||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP1 ||||0||||{}||||.phP1
+空格绕过+文件头检查+扩展名黑名单(pHtml )||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pHtml ||||0||||{}||||.pHtml
+空格绕过+文件头检查+扩展名黑名单(phtml )||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.phtml ||||0||||{}||||.phtml
+空格绕过+文件头检查+扩展名黑名单(PhT )||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.PhT ||||0||||{}||||.PhT
+空格绕过+文件头检查+扩展名黑名单(pht )||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pht ||||0||||{}||||.pht
+点绕过+文件头检查(php.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php.||||0||||{}||||.php
+点绕过+文件头检查+扩展名黑名单(Php.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.Php.||||0||||{}||||.Php
+点绕过+文件头检查+扩展名黑名单(PHp.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHp.||||0||||{}||||.PHp
+点绕过+文件头检查+扩展名黑名单(PHP.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHP.||||0||||{}||||.PHP
+点绕过+文件头检查+扩展名黑名单(pHp.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp.||||0||||{}||||.pHp
+点绕过+文件头检查+扩展名黑名单(pHP.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHP.||||0||||{}||||.pHP
+点绕过+文件头检查+扩展名黑名单(phP.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP.||||0||||{}||||.phP
+点绕过+文件头检查+扩展名黑名单(php5.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php5.||||0||||{}||||.php5
+点绕过+文件头检查+扩展名黑名单(php4.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php4.||||0||||{}||||.php4
+点绕过+文件头检查+扩展名黑名单(php3.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php3.||||0||||{}||||.php3
+点绕过+文件头检查+扩展名黑名单(php2.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php2.||||0||||{}||||.php2
+点绕过+文件头检查+扩展名黑名单(php1.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php1.||||0||||{}||||.php1
+点绕过+文件头检查+扩展名黑名单(pHp5.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp5.||||0||||{}||||.pHp5
+点绕过+文件头检查+扩展名黑名单(pHp4.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp4.||||0||||{}||||.pHp4
+点绕过+文件头检查+扩展名黑名单(pHp3.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp3.||||0||||{}||||.pHp3
+点绕过+文件头检查+扩展名黑名单(pHp2.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp2.||||0||||{}||||.pHp2
+点绕过+文件头检查+扩展名黑名单(pHp1.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp1.||||0||||{}||||.pHp1
+点绕过+文件头检查+扩展名黑名单(phP5.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP5.||||0||||{}||||.phP5
+点绕过+文件头检查+扩展名黑名单(phP4.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP4.||||0||||{}||||.phP4
+点绕过+文件头检查+扩展名黑名单(phP3.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP3.||||0||||{}||||.phP3
+点绕过+文件头检查+扩展名黑名单(phP2.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP2.||||0||||{}||||.phP2
+点绕过+文件头检查+扩展名黑名单(phP1.)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP1.||||0||||{}||||.phP1
+点绕过+文件头检查+扩展名黑名单(pHtml.)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pHtml.||||0||||{}||||.pHtml
+点绕过+文件头检查+扩展名黑名单(phtml.)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.phtml.||||0||||{}||||.phtml
+点绕过+文件头检查+扩展名黑名单(PhT.)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.PhT.||||0||||{}||||.PhT
+点绕过+文件头检查+扩展名黑名单(pht.)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pht.||||0||||{}||||.pht
+冒号绕过+文件头检查(php:1.png)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php:1.png||||0||||{}||||.php
+冒号绕过+文件头检查+<?检查(phtml:1.png)||||image/png||||{./shell/shell_phtml_png.txt}||||php||||1.phtml:1.png||||0||||{}||||.phtml
+冒号绕过+文件头检查+<?检查(pht:1.png)||||image/png||||{./shell/shell_phtml_png.txt}||||php||||1.pht:1.png||||0||||{}||||.pht
+::$DATA绕过+文件头检查(php)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php::$DATA||||0||||{}||||.php
+::$DATA绕过+文件头检查+扩展名黑名单(Php::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.Php::$DATA||||0||||{}||||.Php
+::$DATA绕过+文件头检查+扩展名黑名单(PHp::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHp::$DATA||||0||||{}||||.PHp
+::$DATA绕过+文件头检查+扩展名黑名单(PHP::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHP::$DATA||||0||||{}||||.PHP
+::$DATA绕过+文件头检查+扩展名黑名单(pHp::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp::$DATA||||0||||{}||||.pHp
+::$DATA绕过+文件头检查+扩展名黑名单(pHP::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHP::$DATA||||0||||{}||||.pHP
+::$DATA绕过+文件头检查+扩展名黑名单(phP::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP::$DATA||||0||||{}||||.phP
+::$DATA绕过+文件头检查+扩展名黑名单(php5::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php5::$DATA||||0||||{}||||.php5
+::$DATA绕过+文件头检查+扩展名黑名单(php4::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php4::$DATA||||0||||{}||||.php4
+::$DATA绕过+文件头检查+扩展名黑名单(php3::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php3::$DATA||||0||||{}||||.php3
+::$DATA绕过+文件头检查+扩展名黑名单(php2::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php2::$DATA||||0||||{}||||.php2
+::$DATA绕过+文件头检查+扩展名黑名单(php1::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php1::$DATA||||0||||{}||||.php1
+::$DATA绕过+文件头检查+扩展名黑名单(pHp5::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp5::$DATA||||0||||{}||||.pHp5
+::$DATA绕过+文件头检查+扩展名黑名单(pHp4::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp4::$DATA||||0||||{}||||.pHp4
+::$DATA绕过+文件头检查+扩展名黑名单(pHp3::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp3::$DATA||||0||||{}||||.pHp3
+::$DATA绕过+文件头检查+扩展名黑名单(pHp2::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp2::$DATA||||0||||{}||||.pHp2
+::$DATA绕过+文件头检查+扩展名黑名单(pHp1::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp1::$DATA||||0||||{}||||.pHp1
+::$DATA绕过+文件头检查+扩展名黑名单(phP5::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP5::$DATA||||0||||{}||||.phP5
+::$DATA绕过+文件头检查+扩展名黑名单(phP4::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP4::$DATA||||0||||{}||||.phP4
+::$DATA绕过+文件头检查+扩展名黑名单(phP3::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP3::$DATA||||0||||{}||||.phP3
+::$DATA绕过+文件头检查+扩展名黑名单(phP2::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP2::$DATA||||0||||{}||||.phP2
+::$DATA绕过+文件头检查+扩展名黑名单(phP1::$DATA)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP1::$DATA||||0||||{}||||.phP1
+::$DATA绕过+文件头检查+扩展名黑名单(pHtml::$DATA)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pHtml::$DATA||||0||||{}||||.pHtml
+::$DATA绕过+文件头检查+扩展名黑名单(phtml::$DATA)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.phtml::$DATA||||0||||{}||||.phtml
+::$DATA绕过+文件头检查+扩展名黑名单(PhT::$DATA)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.PhT::$DATA||||0||||{}||||.PhT
+::$DATA绕过+文件头检查+扩展名黑名单(pht::$DATA)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pht::$DATA||||0||||{}||||.pht
+点空格点绕过+文件头检查(php. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php. .||||0||||{}||||.php
+点空格点绕过+文件头检查+扩展名黑名单(Php. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.Php. .||||0||||{}||||.Php
+点空格点绕过+文件头检查+扩展名黑名单(PHp. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHp. .||||0||||{}||||.PHp
+点空格点绕过+文件头检查+扩展名黑名单(PHP. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PHP. .||||0||||{}||||.PHP
+点空格点绕过+文件头检查+扩展名黑名单(pHp. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp. .||||0||||{}||||.pHp
+点空格点绕过+文件头检查+扩展名黑名单(pHP. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHP. .||||0||||{}||||.pHP
+点空格点绕过+文件头检查+扩展名黑名单(phP. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP. .||||0||||{}||||.phP
+点空格点绕过+文件头检查+扩展名黑名单(php5. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php5. .||||0||||{}||||.php5
+点空格点绕过+文件头检查+扩展名黑名单(php4. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php4. .||||0||||{}||||.php4
+点空格点绕过+文件头检查+扩展名黑名单(php3. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php3. .||||0||||{}||||.php3
+点空格点绕过+文件头检查+扩展名黑名单(php2. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php2. .||||0||||{}||||.php2
+点空格点绕过+文件头检查+扩展名黑名单(php1. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php1. .||||0||||{}||||.php1
+点空格点绕过+文件头检查+扩展名黑名单(pHp5. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp5. .||||0||||{}||||.pHp5
+点空格点绕过+文件头检查+扩展名黑名单(pHp4. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp4. .||||0||||{}||||.pHp4
+点空格点绕过+文件头检查+扩展名黑名单(pHp3. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp3. .||||0||||{}||||.pHp3
+点空格点绕过+文件头检查+扩展名黑名单(pHp2. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp2. .||||0||||{}||||.pHp2
+点空格点绕过+文件头检查+扩展名黑名单(pHp1. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pHp1. .||||0||||{}||||.pHp1
+点空格点绕过+文件头检查+扩展名黑名单(phP5. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP5. .||||0||||{}||||.phP5
+点空格点绕过+文件头检查+扩展名黑名单(phP4. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP4. .||||0||||{}||||.phP4
+点空格点绕过+文件头检查+扩展名黑名单(phP3. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP3. .||||0||||{}||||.phP3
+点空格点绕过+文件头检查+扩展名黑名单(phP2. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP2. .||||0||||{}||||.phP2
+点空格点绕过+文件头检查+扩展名黑名单(phP1. .)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.phP1. .||||0||||{}||||.phP1
+点空格点绕过+文件头检查+扩展名黑名单(pHtml. .)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pHtml. .||||0||||{}||||.pHtml
+点空格点绕过+文件头检查+扩展名黑名单(phtml. .)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.phtml. .||||0||||{}||||.phtml
+点空格点绕过+文件头检查+扩展名黑名单(PhT. .)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.PhT. .||||0||||{}||||.PhT
+点空格点绕过+文件头检查+扩展名黑名单(pht. .)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pht. .||||0||||{}||||.pht
+扩展名双写绕过+扩展名黑名单(php)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphphp||||0||||{}||||.php
+扩展名双写绕过+扩展名黑名单(Php)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PPhphp||||0||||{}||||.Php
+扩展名双写绕过+扩展名黑名单(PHp)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PPHpHp||||0||||{}||||.PHp
+扩展名双写绕过+扩展名黑名单(PHP)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.PPHPHP||||0||||{}||||.PHP
+扩展名双写绕过+扩展名黑名单(pHp)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.ppHpHp||||0||||{}||||.pHp
+扩展名双写绕过+扩展名黑名单(pHP)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.ppHPHP||||0||||{}||||.pHP
+扩展名双写绕过+扩展名黑名单(phP)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphPhP||||0||||{}||||.phP
+扩展名双写绕过+扩展名黑名单(php5)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphp5hp5||||0||||{}||||.php5
+扩展名双写绕过+扩展名黑名单(php4)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphp4hp4||||0||||{}||||.php4
+扩展名双写绕过+扩展名黑名单(php3)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphp3hp3||||0||||{}||||.php3
+扩展名双写绕过+扩展名黑名单(php2)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphp2hp2||||0||||{}||||.php2
+扩展名双写绕过+扩展名黑名单(php1)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphp1hp1||||0||||{}||||.php1
+扩展名双写绕过+扩展名黑名单(pHp5)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.ppHp5Hp5||||0||||{}||||.pHp5
+扩展名双写绕过+扩展名黑名单(pHp4)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.ppHp4Hp4||||0||||{}||||.pHp4
+扩展名双写绕过+扩展名黑名单(pHp3)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.ppHp3Hp3||||0||||{}||||.pHp3
+扩展名双写绕过+扩展名黑名单(pHp2)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.ppHp2Hp2||||0||||{}||||.pHp2
+扩展名双写绕过+扩展名黑名单(pHp1)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.ppHp1Hp1||||0||||{}||||.pHp1
+扩展名双写绕过+扩展名黑名单(phP5)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphP5hP5||||0||||{}||||.phP5
+扩展名双写绕过+扩展名黑名单(phP4)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphP4hP4||||0||||{}||||.phP4
+扩展名双写绕过+扩展名黑名单(phP3)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphP3hP3||||0||||{}||||.phP3
+扩展名双写绕过+扩展名黑名单(phP2)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphP2hP2||||0||||{}||||.phP2
+扩展名双写绕过+扩展名黑名单(phP1)||||image/png||||{./shell/shell_php_png.txt}||||php||||1.pphP1hP1||||0||||{}||||.phP1
+扩展名双写绕过+扩展名黑名单(pHtml)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.ppHtmlHtml||||0||||{}||||.pHtml
+扩展名双写绕过+扩展名黑名单(phtml)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pphtmlhtml||||0||||{}||||.phtml
+扩展名双写绕过+扩展名黑名单(PhT)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.PPhThT||||0||||{}||||.PhT
+扩展名双写绕过+扩展名黑名单(pht)||||image/png||||{./shell/shell_phtml_png.txt}||||phtml||||1.pphtht||||0||||{}||||.pht
+apache解析漏洞(.php.qwe.asd)+文件头检查||||image/png||||{./shell/shell_php_png.txt}||||php||||1.php.qwe.asd||||0||||{}||||[AUTO]
+apache解析漏洞(.phtml.qwe.asd)+文件头检查+<?检查||||image/png||||{./shell/shell_phtml_png.txt}||||php||||1.phtml.qwe.asd||||0||||{}||||[AUTO]
+nginx解析漏洞(.png/3.php)+文件头检查||||image/png||||{./shell/shell_php_png.txt}||||php||||1.png||||0||||{}||||.png/3.php
+nginx解析漏洞(.png%00.php)+文件头检查||||image/png||||{./shell/shell_php_png.txt}||||php||||1.png||||0||||{}||||.png%00.php
+nginx解析漏洞(.png/3.phtml)+文件头检查+<?检查||||image/png||||{./shell/shell_phtml_png.txt}||||php||||1.png||||0||||{}||||.png/3.phtml
+nginx解析漏洞(.png%00.phtml)+文件头检查+<?检查||||image/png||||{./shell/shell_phtml_png.txt}||||php||||1.png||||0||||{}||||.png%00.phtml
+#上传路径00截断||||image/gif||||{./shell/shell_phtml_gif.txt}||||phtml||||1.phphtt||||0||||{}||||

